@@ -168,8 +168,7 @@ def main():
                 print("Obstacle too close - moving backward")
                 # Quick scan to determine reverse direction
                 _, distances = perform_full_scan(px)
-                min_angle = get_min_distance_angle(distances)
-                reverse_angle = -min_angle  # Turn opposite to closest obstacle
+                reverse_angle = get_min_distance_angle(distances)  # Turn in direction of closest obstacle
                 print(f"Reversing with angle: {reverse_angle}°")
                 px.set_dir_servo_angle(reverse_angle)
                 px.backward(MAX_POWER)
@@ -185,10 +184,9 @@ def main():
                 print("Scan results:", distances)
                 
                 if best_angle is None:
-                    # All directions blocked - reverse away from closest obstacle
+                    # All directions blocked - reverse in direction of closest obstacle
                     print("All directions blocked - reversing")
-                    min_angle = get_min_distance_angle(distances)
-                    reverse_angle = -min_angle  # Turn opposite to closest obstacle
+                    reverse_angle = get_min_distance_angle(distances)
                     print(f"Reversing with angle: {reverse_angle}°")
                     px.set_dir_servo_angle(reverse_angle)
                     px.backward(MAX_POWER)
